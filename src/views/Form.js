@@ -8,6 +8,16 @@ function Form(props) {
 
   const validateNifNie = nifNie => {
     nifNie = nifNie.replace(/[-, ]/g, "");
+
+    const nieSwap = {
+      X: 0,
+      Y: 1,
+      Z: 2
+    };
+    // NIE
+    if ("XYZ".includes(nifNie.charAt(0))) {
+      nifNie = nieSwap[nifNie.charAt(0)] + nifNie.slice(1);
+    }
     const letter = nifNie.slice(-1);
     const _letter = "TRWAGMYFPDXBNJZSQVHLCKE"[
       parseInt(nifNie.slice(0, -1)) % 23
@@ -90,7 +100,7 @@ function Form(props) {
           placeholder="DNI"
           value={nifNie}
           onChange={e => setNifNie(e.target.value)}
-          pattern="^[0-9]{8,8}[-, ]?[A-Za-z]$"
+          pattern="(^[X,Y,Z][-, ]?[0-9]{7}[-, ]?[A-Z]$)|(^[0-9]{8,8}[-, ]?[A-Za-z]$)"
         />
         <label>Email</label>
         <input
