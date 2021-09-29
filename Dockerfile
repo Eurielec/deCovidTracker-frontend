@@ -1,5 +1,5 @@
 # pull official base image
-FROM node:lts-alpine3.14
+FROM bitnami/node:14-debian-10
 
 # set working directory
 WORKDIR /app

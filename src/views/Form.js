@@ -51,6 +51,10 @@ function Form(props) {
       props.setState("full");
       return;
     }
+    if (statusCode === 412) {
+      props.setState("order");
+      return;
+    }
     // Any others
     else {
       props.setState("failure");

@@ -37,6 +37,17 @@ function ViewManager(props) {
           description="If you think the is some issue, please contact @d3vv3 on Telegram."
         />
       ) : null}
+      {state === "order" ? (
+        <Feedback
+          icon="failure"
+          title={
+            props.operation === "access"
+              ? `The access event is not natural!`
+              : "The exit event is not natural!"
+          }
+          description="Please contact your COVID admin an provide the timeframe you accessed the local."
+        />
+      ) : null}
     </Fragment>
   );
 }
