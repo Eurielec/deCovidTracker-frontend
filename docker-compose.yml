@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  covid-tracker-frontend:
+    build: .
+    image: covid-tracker-frontend
+    name: covid-tracker-frontend
+    restart: unless-stopped
+    ports:
+      - 3004:3000
+    environment:
+      - REACT_APP_BACKEND_URL=example.org
+      - REACT_APP_ASSOCIATION_NAME=<some_association>
+      - REACT_APP_MAX_PEOPLE_NUMBER=<some_number>
