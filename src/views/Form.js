@@ -5,7 +5,7 @@ function Form(props) {
   const url = process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
   const [nifNie, setNifNie] = useState(localStorage.getItem("nifNie") || "");
   const [email, setEmail] = useState(localStorage.getItem("email") || "");
-  const [buttonEnabled, setButtonEnabled] = useState(true);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const validateNifNie = nifNie => {
     nifNie = nifNie.replace(/[-, ]/g, "");
@@ -27,7 +27,7 @@ function Form(props) {
   };
 
   const handleSubmit = async e => {
-    setButtonEnabled(false);
+    setButtonDisabled(true);
     e.preventDefault();
     if (!validateNifNie(nifNie)) {
       alert("Please provide a valid NIF/NIE");
@@ -119,7 +119,7 @@ function Form(props) {
             className="input-button"
             type="submit"
             value="Submit"
-            disabled={buttonEnabled}
+            disabled={buttonDisabled}
           />
         </div>
       </form>
