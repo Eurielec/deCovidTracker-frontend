@@ -5,6 +5,7 @@ function Form(props) {
   const url = process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
   const [nifNie, setNifNie] = useState(localStorage.getItem("nifNie") || "");
   const [email, setEmail] = useState(localStorage.getItem("email") || "");
+  const [buttonEnabled, setButtonEnabled] = useState(true);
 
   const validateNifNie = nifNie => {
     nifNie = nifNie.replace(/[-, ]/g, "");
@@ -26,6 +27,7 @@ function Form(props) {
   };
 
   const handleSubmit = async e => {
+    setButtonEnabled(false);
     e.preventDefault();
     if (!validateNifNie(nifNie)) {
       alert("Please provide a valid NIF/NIE");
@@ -99,7 +101,7 @@ function Form(props) {
           type="text"
           placeholder="DNI"
           value={nifNie}
-          onChange={e => setNifNie(e.target.value)}
+          onChange={e => setNifNie(e.target.value.toUpperCase())}
           pattern="(^[X,Y,Z][-, ]?[0-9]{7}[-, ]?[A-Z]$)|(^[0-9]{8,8}[-, ]?[A-Za-z]$)"
         />
         <label>Email</label>
@@ -109,11 +111,16 @@ function Form(props) {
           type="text"
           placeholder="email@alumnos.upm.es"
           value={email}
-          onChange={e => setEmail(e.target.value)}
+          onChange={e => setEmail(e.target.value.toLowerCase())}
           pattern=".*@(?:alumnos.upm.es|upm.es|.*.upm.es)$"
         />
         <div className="input-button-container">
-          <input className="input-button" type="submit" value="Submit" />
+          <input
+            className="input-button"
+            type="submit"
+            value="Submit"
+            disabled={buttonEnabled}
+          />
         </div>
       </form>
     </div>
