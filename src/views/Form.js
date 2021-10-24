@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 function Form(props) {
-  const associationName = process.env.REACT_APP_ASSOCIATION_NAME || "Local";
-  const url = process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
+  const associationName = props.association || "Local";
+  const url = process.env.REACT_APP_BACKEND_URL || "localhost:8000";
   const [nifNie, setNifNie] = useState(localStorage.getItem("nifNie") || "");
   const [email, setEmail] = useState(localStorage.getItem("email") || "");
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -48,10 +48,12 @@ function Form(props) {
         nif_nie: nifNie,
         email: email,
         type: props.operation === "access" ? "access" : "exit",
-        time: new Date(date.valueOf() - date.getTimezoneOffset() * 60000)
+        time: new Date(date.valueOf() - date.getTimezoneOffset() * 60000),
+        association: props.association
       })
     };
-    let response = await fetch(`https://${url}/event`, requestOptions);
+    let protocol = url.includes("localhost") ? "http" : "https";
+    let response = await fetch(`${protocol}://${url}/event`, requestOptions);
     const statusCode = await response.status;
     // 202 Accepted
     if (statusCode === 202) {

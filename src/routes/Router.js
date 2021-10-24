@@ -6,11 +6,25 @@ function Routes() {
   return (
     <Router>
       <Switch>
+        <Route
+          exact
+          path="/access/:association"
+          render={props => <ViewManager operation="access" {...props} />}
+        />
+        <Route
+          exact
+          path="/exit/:association"
+          render={props => <ViewManager operation="exit" {...props} />}
+        />
         <Route path="/access">
-          <ViewManager operation="access" />
+          <p style={{ color: "white" }}>
+            How did you even get here? Please scan a valid QR code.
+          </p>
         </Route>
         <Route path="/exit">
-          <ViewManager operation="exit" />
+          <p style={{ color: "white" }}>
+            How did you even get here? Please scan a valid QR code.
+          </p>
         </Route>
         <Route path="/">
           <p style={{ color: "white" }}>How did you even get here?</p>
